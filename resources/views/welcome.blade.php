@@ -37,8 +37,13 @@
                 </div>
 
                 <div class="mt-16">
+                    <div class="ml-4 text-center text-sm text-gray-500 dark:text-gray-400 sm:text-left sm:ml-0">
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Latest Observations</h2>
+                @foreach ($latest_observations as $observation)
 
-
+                        <b>{{ $observation->getObservatoryCode() }}</b>: {{ $observation->created_at }} - {{ $observation->desig }} | {{ $observation->obs80 }}<br />
+                @endforeach
+                    </div>
                 </div>
 
                 <div class="flex justify-center mt-16 px-0 sm:items-center sm:justify-between">
