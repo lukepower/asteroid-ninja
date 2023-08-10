@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\ObservatoryCode;
 
 class MpcNeocpObs extends Model
 {
     use HasFactory;
 
-        /**
+    /**
      * The connection name for the model.
      *
      * @var string
@@ -36,4 +37,10 @@ class MpcNeocpObs extends Model
         return substr(strrchr($this->obs80, " "), 1);
     }
 
+    public function ObservatoryCode()
+    {
+        $mpc_code = $this->getObservatoryCode();
+        $obs_code = ObservatoryCode::where('code', $mpc_code)->first();
+        return $obs_code;
+    }
 }
