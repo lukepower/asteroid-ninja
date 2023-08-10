@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Models\MpcNeocpObs;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,11 +15,22 @@ use App\Models\MpcNeocpObs;
 */
 
 Route::get('/', function () {
-
     $latest_observations = MpcNeocpObs::take(10)
-                ->orderBy('created_at', 'desc')
-               ->get();
+        ->orderBy('created_at', 'desc')
+        ->get();
 
 
     return view('welcome')->with('latest_observations', $latest_observations);
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__ . '/auth.php';
