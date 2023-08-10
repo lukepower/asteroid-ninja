@@ -41,6 +41,10 @@ class MpcNeocpObs extends Model
     {
         $mpc_code = $this->getObservatoryCode();
         $obs_code = ObservatoryCode::where('code', $mpc_code)->first();
+        if ($obs_code == null) {
+            $obs_code = new ObservatoryCode();
+            $obs_code->code = $mpc_code;
+        }
         return $obs_code;
     }
 }
