@@ -29,7 +29,8 @@ Route::get('get_observations/{name}', function ($name) {
     if (strlen($name) < 3) {
         return response("Name must be at least 3 characters long", 400)->header('Content-Type', 'text/plain');
     }
-    $observations = \DB::table('obs_sbn')
+    $observations = \DB::connection('mpc_db')
+        ->table('obs_sbn')
         ->where('obs80', 'like', '%' . $name . '%')
         ->orWhere('trkmpc', $name)
         ->orderBy('created_at', 'asc')
