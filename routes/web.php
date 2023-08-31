@@ -24,6 +24,19 @@ Route::get('/', function () {
     return view('welcome')->with('latest_observations', $latest_observations);
 });
 
+Route::get('get_observations/{name}', function ($name) {
+
+    $observations = MpcNeocpObs::where('obs80', 'like', '%' . $name . '%')
+        ->orderBy('created_at', 'asc')
+        ->get();
+    $ret = "";
+    foreach ($observations as $observation) {
+        $ret .=  $observation->obs80 . "\n";
+    }
+
+    return response($ret, 200)->header('Content-Type', 'text/plain');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
