@@ -50,11 +50,12 @@
             </div>
 
             <div class="mt-16">
-                <div class="ml-4 text-center text-sm text-gray-500 dark:text-gray-400 sm:text-left sm:ml-0">
+                <div class="ml-4 text-center text-sm text-white dark:text-gray-400 sm:text-left sm:ml-0">
                     <h2 class="text-2xl font-bold text-white dark:text-white">Latest Observations</h2>
                     @foreach ($latest_observations as $observation)
                         <b>{{ $observation->ObservatoryCode()->code }}
-                            ({{ $observation->ObservatoryCode()->name }})</b>: {{ $observation->created_at }} -
+                            ({{ $observation->ObservatoryCode()->name }})
+                        </b>: {{ $observation->created_at }} -
                         {{ $observation->desig }} | {{ $observation->obs80 }}<br />
                     @endforeach
                 </div>
