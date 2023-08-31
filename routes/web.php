@@ -26,6 +26,9 @@ Route::get('/', function () {
 
 Route::get('get_observations/{name}', function ($name) {
 
+    if (strlen($name) < 3) {
+        return response("Name must be at least 3 characters long", 400)->header('Content-Type', 'text/plain');
+    }
     $observations = MpcNeocpObs::where('obs80', 'like', '%' . $name . '%')
         ->orderBy('created_at', 'asc')
         ->get();
