@@ -33,7 +33,7 @@ Route::get('get_observations/{name}', function ($name) {
         ->table('obs_sbn')
         ->where('obs80', 'like', '%' . $name . '%')
         //->orWhere('trkmpc', $name)
-        ->orderBy('created_at', 'asc')
+        // ->orderBy('created_at', 'asc')
         ->get();
 
 

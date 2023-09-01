@@ -1,3 +1,8 @@
+:root {
+    --gray-400: 200, 200, 200;
+
+  }
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,3 +10,4 @@
 body {
     background-color:#75719e;
 }
+
