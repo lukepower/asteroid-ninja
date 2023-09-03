@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('get_observations_neocp/{name}', "App\Http\Controllers\MpcSearcher@searchMpcNeocp")->name('api.observations.get-neocp');
+// Test for packed designations
+Route::get('get_observations_packed/{name}', "App\Http\Controllers\MpcSearcher@searchMpcPacked")->name('api.observations.get-packed');
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
