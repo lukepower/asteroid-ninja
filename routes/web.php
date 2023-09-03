@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Models\MpcNeocpObs;
 use App\Models\ObservatoryCode;
 use Illuminate\Support\Str;
+
+use Illuminate\Support\Facades\Cache;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,8 +40,21 @@ GROUP BY desig
     WHERE \"created_at\" BETWEEN NOW() - INTERVAL '7 DAYS' AND NOW()
     GROUP BY desig");
 
+    $z28_totals_neocp = Cache::remember('z28_totals_neocp', 600, function () {
+        return MpcNeocpObs::where('obs80', 'like', '%Z28%')
+            ->whereBetween('created_at', [now()->subDays(7), now()])
+            ->count();
+    });
+
+    $z28_totals_obs = Cache::remember('z28_totals_obs', 600, function () {
+        return \DB::connection('mpc_db')->select("SELECT count(stn) AS ct_stn, stn FROM public.obs_sbn WHERE stn = 'Z28' GROUP BY stn");
+    });
+
+
     return view('welcome')->with('latest_observations', $latest_observations)
-        ->with('last_neocp_obs', $last_neocp_obs);
+        ->with('last_neocp_obs', $last_neocp_obs)
+        ->with('z28_totals_neocp', $z28_totals_neocp)
+        ->with('z28_totals_obs', $z28_totals_obs[0]->ct_stn);
 });
 
 

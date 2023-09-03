@@ -84,7 +84,8 @@
                         of Z28</h5>
                     <p class="font-normal text-gray-700 dark:text-gray-400">
 
-
+                        <div>Currently observed NEOCP's in DB: {{ $z28_totals_neocp }}</div>
+                        <div>Total observations in DB: {{ $z28_totals_obs }}</div>
 
                     </p>
                 </a>
