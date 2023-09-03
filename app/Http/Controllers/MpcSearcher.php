@@ -92,6 +92,12 @@ class MpcSearcher extends Controller
                 ->where('obs80',  'LIKE', '%' . $request->obscode . '%')
                 ->orderBy('created_at', 'asc')
                 ->get();
+            $observations_neocp2 = \DB::connection('mpc_db')
+                ->table('neocp_obs_archive')
+                ->where('obs80',  'LIKE', '%' . $request->obscode . '%')
+                ->orderBy('created_at', 'asc')
+                ->get();
+            $observations_neocp = $observations_neocp->merge($observations_neocp2);
         }
         if (isset($request->type_normal) || (!isset($request->type_neocp) && !isset($request->type_packed))) {
             // checked
