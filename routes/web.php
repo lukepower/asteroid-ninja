@@ -88,7 +88,7 @@ Route::get('get_observations_packed/{name}', function ($name) {
         ->get();*/
 
     foreach ($observations as $observation) {
-        $ret .=  Str::limit($observation->obs80, 80, "") . "\n";
+        $ret .=  $observation->obs80 . "\n";
     }
 
     return response($ret, 200)->header('Content-Type', 'text/plain');
