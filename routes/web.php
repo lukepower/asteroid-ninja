@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Models\MpcNeocpObs;
 use App\Models\ObservatoryCode;
+use Illuminate\Support\Str;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -55,23 +56,39 @@ Route::get('get_observations_packed/{name}', function ($name) {
     if (strlen($name) < 3) {
         return response("Name must be at least 3 characters long", 400)->header('Content-Type', 'text/plain');
     }
+    $ret = "";
+
     $observations = \DB::connection('mpc_db')
         ->table('obs_sbn')
-        ->where('trksub', $name)
-        ->orWhere('permid', $name)
-        ->orWhere('provid', $name)
-        // ->orderBy('created_at', 'asc')
+        ->where('permid', $name)
         ->get();
 
+    if (count($observations) == 0) {
+        // Switch to other
+        $ret .= "#Try to switch to provid\n";
+
+        $observations = \DB::connection('mpc_db')
+            ->table('obs_sbn')
+            ->where('provid', $name)
+            ->get();
+    }
+    if (count($observations) == 0) {
+        // Switch to other
+        $ret .= "#Try to switch to trksub\n";
+        $observations = \DB::connection('mpc_db')
+            ->table('obs_sbn')
+            ->where('trksub', $name)
+            ->get();
+    }
 
     /*
     $observations = MpcNeocpObs::where('obs80', 'like', '%' . $name . '%')
         ->orWhere('trkmpc', $name)
         ->orderBy('created_at', 'asc')
         ->get();*/
-    $ret = "";
+
     foreach ($observations as $observation) {
-        $ret .=  $observation->obs80 . "\n";
+        $ret .=  Str::limit($observation->obs80, 80, "") . "\n";
     }
 
     return response($ret, 200)->header('Content-Type', 'text/plain');
