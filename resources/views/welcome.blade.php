@@ -76,6 +76,7 @@
                 </div>
             </div>
 
+            @livewire('search-observations-by-observatory-code')
             <div class="grid grid-cols-2 mt-16 px-0 ">
 
                 <a href="#"
@@ -115,6 +116,8 @@
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/datepicker.min.js"></script>
 </body>
 
 </html>

@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Cache;
 |
 */
 
+Route::post("/wb/mpc.search-by-obscode", "\App\Http\Controllers\MpcSearcher@searchByObscode")->name('mpc.search-by-obscode');
+
 Route::get('/', function () {
     $latest_observations = MpcNeocpObs::take(10)
         ->orderBy('created_at', 'desc')

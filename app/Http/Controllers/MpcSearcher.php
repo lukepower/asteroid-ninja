@@ -72,4 +72,49 @@ class MpcSearcher extends Controller
 
         return response($ret, 200)->header('Content-Type', 'text/plain');
     }
+    /**
+     * searchByObscode()
+     */
+    public function searchByObscode(Request $request)
+    {
+        $request->validate([
+            'obscode' => 'required',
+        ]);
+
+        // Check if there is a date range
+        $observations_neocp = array();
+        $observations = array();
+        // Check what type to return
+        if (isset($request->type_neocp)) {
+            // checked
+            $observations_neocp = \DB::connection('mpc_db')
+                ->table('neocp_obs')
+                ->where('obs80',  'LIKE', '%' . $request->obscode . '%')
+                ->orderBy('created_at', 'asc')
+                ->get();
+        }
+        if (isset($request->type_normal) || (!isset($request->type_neocp) && !isset($request->type_packed))) {
+            // checked
+            $observations = \DB::connection('mpc_db')
+                ->table('obs_sbn')
+                ->where('stn',  $request->obscode)
+                ->orderBy('created_at', 'asc')
+                ->get();
+        }
+
+
+
+        $ret = "";
+
+        foreach ($observations as $observation) {
+            $ret .=  $observation->obs80 . "\n";
+        }
+        foreach ($observations_neocp as $observation) {
+            $ret .=  $observation->obs80 . "\n";
+        }
+        return response()->streamDownload(function () use ($ret) {
+            echo $ret;
+        }, 'observations.txt');
+        //return response($ret, 200)->header('Content-Type', 'text/plain');
+    }
 }

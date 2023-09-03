@@ -12,6 +12,8 @@ export default {
         './storage/framework/views/*.php',
         './resources/**/*.blade.php',
         './vendor/filament/**/*.blade.php',
+        "./node_modules/tw-elements/dist/js/**/*.js",
+        "./node_modules/flowbite/**/*.js"
     ],
     darkMode: 'class',
     theme: {
@@ -22,5 +24,5 @@ export default {
         },
     },
 
-    plugins: [forms,colors],
+    plugins: [forms,colors,require("tw-elements/dist/plugin.cjs"),require('flowbite/plugin')],
 };
