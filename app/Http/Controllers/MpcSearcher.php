@@ -89,12 +89,12 @@ class MpcSearcher extends Controller
             // checked
             $observations_neocp = \DB::connection('mpc_db')
                 ->table('neocp_obs')
-                ->where('obs80',  'LIKE', '%' . $request->obscode . '%')
+                ->where('obs80',  'LIKE', '%' . $request->obscode)
                 ->orderBy('created_at', 'asc')
                 ->get();
             $observations_neocp2 = \DB::connection('mpc_db')
                 ->table('neocp_obs_archive')
-                ->where('obs80',  'LIKE', '%' . $request->obscode . '%')
+                ->where('obs80',  'LIKE', '%' . $request->obscode)
                 ->orderBy('created_at', 'asc')
                 ->get();
             $observations_neocp = $observations_neocp->merge($observations_neocp2);
