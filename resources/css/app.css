@@ -1,5 +1,7 @@
 :root {
     --gray-400: 200, 200, 200;
+    --sky-200: #bae6fd;
+    --sky-100: #dbeafe;
 
   }
 
@@ -10,4 +12,11 @@
 body {
     background-color:#75719e;
 }
+a {
+    color: var(--sky-200);
+}
+a:hover {
+    color: var(--sky-100);
+}
+
 

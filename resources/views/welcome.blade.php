@@ -62,14 +62,31 @@
                     @endforeach
                 </div>
             </div>
-            <div class="grid grid-cols-3 mt-16 px-0 ">
+
+            <div class="mt-16">
+                <div class="ml-4 text-center text-sm text-white dark:text-gray-400 sm:text-left sm:ml-0">
+                    <h2 class="text-2xl font-bold text-white dark:text-white">LAST NEOCP</h2>
+                    <ul class="list-disc list-inside">
+                        @foreach ($last_neocp_obs as $neocp_obs)
+                            <li><a class="font-bold"
+                                    href="{{ route('api.observations.get-neocp', ['name' => $neocp_obs->desig]) }}">{{ $neocp_obs->desig }}</a>:
+                                {{ $neocp_obs->ct_desig }} observations so far </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 mt-16 px-0 ">
 
                 <a href="#"
                     class="block  p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy
-                        technology acquisitions 2021</h5>
-                    <p class="font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology
-                        acquisitions of 2021 so far, in reverse chronological order.</p>
+                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Latest measurements
+                        of Z28</h5>
+                    <p class="font-normal text-gray-700 dark:text-gray-400">
+
+
+
+                    </p>
                 </a>
 
 
@@ -82,13 +99,6 @@
                 </a>
 
 
-                <a href="#"
-                    class="block  p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy
-                        technology acquisitions 2021</h5>
-                    <p class="font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology
-                        acquisitions of 2021 so far, in reverse chronological order.</p>
-                </a>
 
             </div>
 

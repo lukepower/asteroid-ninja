@@ -21,8 +21,25 @@ Route::get('/', function () {
         ->orderBy('created_at', 'desc')
         ->get();
 
+    /**
+     * SELECT count(desig) AS ct_desig,
+desig
+FROM public.neocp_obs
+WHERE "created_at" BETWEEN NOW() - INTERVAL '7 DAYS' AND NOW()
+GROUP BY desig
+     */
+    /*$last_neocp_obs = MpcNeocpObs::select('desig', 'created_at')->groupBy('desig')
+        ->whereBetween('created_at', [now()->subDays(7), now()])
+        ->get();*/
 
-    return view('welcome')->with('latest_observations', $latest_observations);
+    $last_neocp_obs =   \DB::connection('mpc_db')->select("SELECT count(desig) AS ct_desig,
+    desig
+    FROM public.neocp_obs
+    WHERE \"created_at\" BETWEEN NOW() - INTERVAL '7 DAYS' AND NOW()
+    GROUP BY desig");
+
+    return view('welcome')->with('latest_observations', $latest_observations)
+        ->with('last_neocp_obs', $last_neocp_obs);
 });
 
 
