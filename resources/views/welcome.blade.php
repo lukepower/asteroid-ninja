@@ -56,7 +56,9 @@
                         <b>{{ $observation->ObservatoryCode()->code }}
                             ({{ $observation->ObservatoryCode()->name }})
                         </b>: {{ $observation->created_at }} -
-                        {{ $observation->desig }} | {{ $observation->obs80 }}<br />
+                        <a class="font-bold"
+                            href="{{ route('api.observations.get-neocp', ['name' => $observation->desig]) }}">{{ $observation->desig }}</a>
+                        | {{ $observation->obs80 }}<br />
                     @endforeach
                 </div>
             </div>
