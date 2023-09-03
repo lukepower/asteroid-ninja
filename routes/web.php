@@ -58,7 +58,8 @@ Route::get('get_observations_packed/{name}', function ($name) {
     $observations = \DB::connection('mpc_db')
         ->table('obs_sbn')
         ->where('trksub', $name)
-        //->orWhere('trkmpc', $name)
+        ->orWhere('permid', $name)
+        ->orWhere('provid', $name)
         // ->orderBy('created_at', 'asc')
         ->get();
 
